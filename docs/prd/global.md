@@ -11,7 +11,7 @@
 - 無需自動化 GitHub（C-agent）；演示以截圖/文章呈現。
 
 ## 範圍內
-- 固定的 deck JSON schema（paragraphs/topics/cards/stats 等核心欄位、卡片 bullets 規格）。
+- 固定的 deck JSON schema（paragraphs/topics/cards/stats 等核心欄位、卡片 bullets 規格）；demo 輸出放 public 根目錄 `deck.json`，UI 以 `fetch('/deck.json')` 讀取。
 - A-agent：CLI `cli generate` 產生 deck.json；`cli validate` 驗證 deck.json（schema + 基本規則）。
 - B-agent：將 UI shell 接上 JSON，先用 deck.sample.json，後切換 deck.json；支援翻卡上一張/下一張、分頁或序列瀏覽、統計、主題跳轉、錯誤提示。
 
