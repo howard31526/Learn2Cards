@@ -46,105 +46,111 @@ const App = () => {
 
   return (
     <div className="app">
-      <header className="app-header">
-        <div className="app-title">文件歸納切卡機 · Demo UI Shell</div>
-        <div className="app-subtitle">資料來源：內建 sampleDeck（P0 假資料）</div>
-      </header>
+      <div className="app-shell">
+        <header className="app-header">
+          <div className="app-title">文件歸納切卡機 · Demo UI Shell</div>
+          <div className="app-subtitle">資料來源：內建 sampleDeck（P0 假資料）</div>
+        </header>
 
-      <div className="main-layout">
-        <aside className="sidebar">
-          <section className="panel">
-            <div className="panel-title">統計資訊</div>
-            <div className="stats-grid">
-              <div className="stat-item">
-                <div className="stat-label">段落數</div>
-                <div className="stat-value">{sampleDeck.stats.paragraphCount}</div>
+        <div className="main-layout">
+          <aside className="sidebar">
+            <section className="panel panel-static">
+              <div className="panel-title">統計資訊</div>
+              <div className="stats-grid">
+                <div className="stat-item">
+                  <div className="stat-label">段落數</div>
+                  <div className="stat-value">
+                    {sampleDeck.stats.paragraphCount}
+                  </div>
+                </div>
+                <div className="stat-item">
+                  <div className="stat-label">主題數</div>
+                  <div className="stat-value">{sampleDeck.stats.topicCount}</div>
+                </div>
+                <div className="stat-item">
+                  <div className="stat-label">卡片數</div>
+                  <div className="stat-value">{sampleDeck.stats.cardCount}</div>
+                </div>
               </div>
-              <div className="stat-item">
-                <div className="stat-label">主題數</div>
-                <div className="stat-value">{sampleDeck.stats.topicCount}</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-label">卡片數</div>
-                <div className="stat-value">{sampleDeck.stats.cardCount}</div>
-              </div>
-            </div>
-          </section>
+            </section>
 
-          <section className="panel">
-            <div className="panel-title">主題列表</div>
-            <div className="topics-list">
-              <button
-                className={`topic-button ${
-                  currentTopicId === "all" ? "active" : ""
-                }`}
-                onClick={() => handleTopicChange("all")}
-              >
-                全部主題
-              </button>
-              {sampleDeck.topics.map((topic) => (
+            <section className="panel">
+              <div className="panel-title">主題列表</div>
+              <div className="topics-list">
                 <button
-                  key={topic.id}
                   className={`topic-button ${
-                    currentTopicId === topic.id ? "active" : ""
+                    currentTopicId === "all" ? "active" : ""
                   }`}
-                  onClick={() => handleTopicChange(topic.id)}
+                  onClick={() => handleTopicChange("all")}
                 >
-                  {topic.title || "未命名主題"}
+                  全部主題
                 </button>
-              ))}
-            </div>
-          </section>
-        </aside>
+                {sampleDeck.topics.map((topic) => (
+                  <button
+                    key={topic.id}
+                    className={`topic-button ${
+                      currentTopicId === topic.id ? "active" : ""
+                    }`}
+                    onClick={() => handleTopicChange(topic.id)}
+                  >
+                    {topic.title || "未命名主題"}
+                  </button>
+                ))}
+              </div>
+            </section>
+          </aside>
 
-        <main className="main-panel">
-          {totalCards === 0 ? (
-            <div className="empty-state">
-              目前沒有卡片可顯示（可能是資料尚未產生）。
-            </div>
-          ) : (
-            <div className="card-viewer">
+          <main className="main-panel">
+            {totalCards === 0 ? (
+              <div className="empty-state">
+                目前沒有卡片可顯示（可能是資料尚未產生）。
+              </div>
+            ) : (
+              <div className="card-viewer">
               <div className="card-meta">
-                <div className="card-topic">主題：{resolveTopicTitle()}</div>
-                <div className="card-counter">
-                  第 {currentCardIndex + 1} 張 / 共 {totalCards} 張
+                <div className="card-topic">
+                  <span className="card-topic-text">{resolveTopicTitle()}</span>
+                  <span className="card-counter">
+                    第 {currentCardIndex + 1} 張 / 共 {totalCards} 張
+                  </span>
                 </div>
               </div>
 
-              <div className="card">
-                <h2 className="card-title">
-                  {currentCard?.title || "未命名卡片"}
-                </h2>
-                {currentCard?.bullets?.length ? (
-                  <ul className="card-bullets">
-                    {currentCard.bullets.map((bullet, idx) => (
-                      <li key={idx}>{bullet}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="card-empty">（此卡片目前沒有內容）</p>
-                )}
-              </div>
+                <div className="card">
+                  <h2 className="card-title">
+                    {currentCard?.title || "未命名卡片"}
+                  </h2>
+                  {currentCard?.bullets?.length ? (
+                    <ul className="card-bullets">
+                      {currentCard.bullets.map((bullet, idx) => (
+                        <li key={idx}>{bullet}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="card-empty">（此卡片目前沒有內容）</p>
+                  )}
+                </div>
 
-              <div className="controls">
-                <button
-                  className="nav-button"
-                  onClick={handlePrev}
-                  disabled={disablePrev}
-                >
-                  ← 上一張
-                </button>
-                <button
-                  className="nav-button"
-                  onClick={handleNext}
-                  disabled={disableNext}
-                >
-                  下一張 →
-                </button>
+                <div className="controls">
+                  <button
+                    className="nav-button"
+                    onClick={handlePrev}
+                    disabled={disablePrev}
+                  >
+                    ← 上一張
+                  </button>
+                  <button
+                    className="nav-button"
+                    onClick={handleNext}
+                    disabled={disableNext}
+                  >
+                    下一張 →
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
-        </main>
+            )}
+          </main>
+        </div>
       </div>
     </div>
   );
