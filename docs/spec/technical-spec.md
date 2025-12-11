@@ -63,9 +63,9 @@
 - `stats` 與實際數量一致（可由 validate 計算驗證）。
 
 ## A-agent：CLI 介面
-- 命令：`cli generate --input <path> --output <path> [--max-topics N] [--temperature x] [--cluster-threshold y] [--model <name>] [--language zh|en|auto]`
-  - 讀 Markdown/純文字，完成：切段→重點+關鍵詞→embedding 粗分群→LLM 群組命名/寫卡→統計→輸出 deck.json。
-  - 預設行為：若 output 未指定，寫入同目錄 `deck.json`；若檔已存在，需警示（可用 `--force` 覆寫）。
+- 命令：`cli generate --input <path> --output <path> [--max-topics N] [--temperature x] [--topic-threshold y] [--model <name>] [--language zh|en|auto]`
+  - 讀 Markdown/純文字，完成：切段→重點+關鍵詞→embedding 粗分群（僅閾值分群，尊重 `maxTopics`）→LLM 群組命名/寫卡→統計→輸出 deck.json。
+  - 預設行為（demo 規則）：若 output 未指定，寫入 `public/deck.json`（UI 用 `fetch('/deck.json')` 可直接讀）；若檔已存在，需警示（可用 `--force` 覆寫）。
 - 命令：`cli validate --input <path>`
   - 驗證 JSON schema、必填欄位、鍵的對應關係、bullets 範圍、stats 正確性。
   - 若失敗，回傳錯誤清單；成功則回傳 OK。
@@ -74,7 +74,7 @@
 
 ## B-agent：UI 整合需求
 - 資料來源：優先讀取 `deck.sample.json`（P0 已放），驗收後可切換 `deck.json`。
-- 載入方式：前端 fetch 本地 JSON 檔或由簡易 dev server 提供；需有載入中/錯誤提示。
+- 載入方式（demo 規則）：前端以 `fetch('/deck.json')` 讀取放在 web public 根目錄的輸出檔；需有載入中/錯誤提示。
 - 功能：
   - 翻卡：上一張/下一張；支援鍵盤左右鍵。
   - 分頁或序列瀏覽：可設定每頁卡片數，或單張序列模式。
