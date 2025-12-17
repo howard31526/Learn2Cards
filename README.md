@@ -9,7 +9,7 @@ Learn2Cards 是一個以 **React + TypeScript + Vite** 打造的「文件歸納�
 
 - `frontend/`：Vite + React 前端（UI shell、sampleDeck、相關設定）。
 - `backend/`：預留給 Cloud Agent / API / 推論邏輯，目前僅放佔位檔。
-- `docs/`：需求與設計文件。
+- `docs/`：需求與設計文件（PRDs，spec）。
 
 
 ## 🔍 功能摘要（P0）
